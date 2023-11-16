@@ -14,7 +14,7 @@ public class DbOperations {
    public void openDb() {
       try {
          Class.forName("org.sqlite.JDBC");
-         this.conn = DriverManager.getConnection("jdbc:sqlite:finances.db");
+         this.conn = DriverManager.getConnection("jdbc:sqlite:/home/beska/Documents/Uni/JAVA/FinanceAnalyzer/db/finances.db");
       } catch ( Exception e ) {
          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
          System.exit(0);
@@ -35,8 +35,8 @@ public class DbOperations {
    public void createTables() {
       try {
          Statement statement = this.conn.createStatement();
-         statement.executeUpdate("create table expence if not exists (id integer primary key autoincrement, name text, amount real, date text, category text, description text)");
-         statement.executeUpdate("create table income if not exists (id integer primary key autoincrement, name text, amount real, date text, category text, description text)");
+         statement.executeUpdate("create table if not exists expence (id integer primary key autoincrement, name text, amount real, date text, category text, description text)");
+         statement.executeUpdate("create table if not exists income (id integer primary key autoincrement, name text, amount real, date text, category text, description text)");
       } catch ( Exception e ) {
          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
          System.exit(0);
@@ -54,13 +54,13 @@ public class DbOperations {
 
    }
 
-   public String getSingleRecord(String table, int id) {
+   public String getTotal(String table) {
       String data = "";
       try {
          Statement statement = this.conn.createStatement();
-         ResultSet rs = statement.executeQuery("select * from " + table + " where id = " + id);
+         ResultSet rs = statement.executeQuery("select sum(amount) from " + table);
          while (rs.next()) {
-            data += rs.getString("name") + " " + rs.getDouble("amount") + " " + rs.getString("date") + " " + rs.getString("category") + " " + rs.getString("description");
+            data += rs.getDouble("sum(amount)");
          }
          rs.close();
       } catch ( Exception e ) {
@@ -76,7 +76,7 @@ public class DbOperations {
          Statement statement = this.conn.createStatement();
          ResultSet rs = statement.executeQuery("select * from " + table);
          while (rs.next()) {
-            data += rs.getString("name") + " " + rs.getDouble("amount") + " " + rs.getString("date") + " " + rs.getString("category") + " " + rs.getString("description") + "\n";
+            data += "Name: " + rs.getString("name") + " Amt: " + rs.getDouble("amount") + " Date:" + rs.getString("date") + " Category:" + rs.getString("category") + " \n" + rs.getString("description") + "\n\n";
          }
          rs.close();
       } catch ( Exception e ) {
@@ -84,6 +84,11 @@ public class DbOperations {
          System.exit(0);
       }
       return data;
+   }
+
+   public static void main(String[] args){
+      DbOperations db = new DbOperations();
+      db.openDb();
    }
 
 }
