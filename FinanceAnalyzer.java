@@ -12,11 +12,12 @@ public class FinanceAnalyzer {
     DbOperations dbconn = new DbOperations();
     String command;
     boolean exit = false;
+    System.out.println("\n\n\n\n\n\n\nWelcome to FinanceAnalyzer");
     while (!exit) {
       System.out.println("Enter a command: (to see all commands possible, type \"help\"");
       command = input.nextLine();
       if (command.equals("help")) {
-        System.out.println("Here are the commands you can use:\nadd expence\nadd income\nshow expences\nshow incomes\nshow statistics\nexit\n");
+        System.out.println("\n\nHere are the commands you can use:\nadd expence\nadd income\nshow expences\nshow incomes\nshow statistics\nexit\n");
         // - - - 
       }
       if (command.equals("exit")) {

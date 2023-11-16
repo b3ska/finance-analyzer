@@ -5,6 +5,7 @@ import java.sql.*;
 
 public class DbOperations {
    private Connection conn;
+   private String dbPath = "/home/beska/Documents/Uni/JAVA/FinanceAnalyzer/db/";
 
    public DbOperations() {
       openDb();
@@ -14,7 +15,7 @@ public class DbOperations {
    public void openDb() {
       try {
          Class.forName("org.sqlite.JDBC");
-         this.conn = DriverManager.getConnection("jdbc:sqlite:/home/beska/Documents/Uni/JAVA/FinanceAnalyzer/db/finances.db");
+         this.conn = DriverManager.getConnection("jdbc:sqlite:"+dbPath+"finances.db");
       } catch ( Exception e ) {
          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
          System.exit(0);
@@ -84,11 +85,6 @@ public class DbOperations {
          System.exit(0);
       }
       return data;
-   }
-
-   public static void main(String[] args){
-      DbOperations db = new DbOperations();
-      db.openDb();
    }
 
 }
