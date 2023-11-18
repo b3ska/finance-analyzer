@@ -1,6 +1,12 @@
+/**
+  * File: FinantialOperation.java
+ * Author: Artem Kalmakov
+ * Date: 11/18/2023
+*/
+
 package FinanceAnalyzer.financeClasses;
 
-public abstract class FinantialOperation {
+public class FinantialOperation {
   protected double amount;
   protected String name, date, category, description;
 

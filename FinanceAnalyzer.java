@@ -1,3 +1,8 @@
+/**
+  * File: FinanceAnalyzer.java
+ * Author: Artem Kalmakov
+ * Date: 11/18/2023
+*/
 package FinanceAnalyzer;
 import java.util.Scanner;
 
@@ -6,6 +11,17 @@ import FinanceAnalyzer.financeClasses.Expence;
 import FinanceAnalyzer.financeClasses.Income;
 
 public class FinanceAnalyzer {
+
+  public static double getAmount(Scanner input) {
+    try {
+      return Integer.parseInt(input.nextLine());
+    }
+    catch(NumberFormatException e) {
+      System.out.println("Invalid input. Please try again.");
+      return getAmount(input);
+    }
+  }
+  
   public static void main(String [] args){ 
     // - - -
     Scanner input = new Scanner(System.in);
@@ -21,13 +37,15 @@ public class FinanceAnalyzer {
         // - - - 
       }
       if (command.equals("exit")) {
+        dbconn.closeDb();
+        System.err.println("Exiting FinanceAnalyzer");
         exit = true;
       }
       if (command.equals("add expence")) {
         System.out.println("What did you buy? *: ");
         String name = input.nextLine();
         System.out.println("Enter the amount of money spent *: ");
-        double amount = -input.nextDouble();
+        double amount = getAmount(input);
         System.out.println("Enter the category of the expence: ");
         String category = input.nextLine();
         System.out.println("Enter the date of the expence: (dd/mm/yyyy)");
@@ -42,7 +60,7 @@ public class FinanceAnalyzer {
         System.out.println("Type of income? *: ");
         String name = input.nextLine();
         System.out.println("Enter the amount of money earned *: ");
-        double amount = input.nextDouble();
+        double amount = getAmount(input);
         System.out.println("Enter the category of the income: ");
         String category = input.nextLine();
         System.out.println("Enter the date of the income: (dd/mm/yyyy)");

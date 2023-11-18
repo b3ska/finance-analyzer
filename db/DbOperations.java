@@ -1,3 +1,9 @@
+/**
+  * File: DbOperations.java
+ * Author: Artem Kalmakov
+ * Date: 11/18/2023
+*/
+
 package FinanceAnalyzer.db;
 
 import FinanceAnalyzer.financeClasses.FinantialOperation;
@@ -5,6 +11,7 @@ import java.sql.*;
 
 public class DbOperations {
    private Connection conn;
+   // update this path to your own, where you want to store the database
    private String dbPath = "/home/beska/Documents/Uni/JAVA/FinanceAnalyzer/db/";
 
    public DbOperations() {

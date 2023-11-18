@@ -7,4 +7,8 @@
   about driver and api. You need to add them to development environment (I did it via Visual Studio Code UI)
   Also change path to where you want the db to be created (delete url if wherever from you are runnig the programm)
 - Run main file (FinantialAnalyzer.java)
-Include Credits
+- Credits
+  - https://github.com/xerial/sqlite-jdbc
+  - https://www.sqlitetutorial.net/sqlite-java
+  - https://www.tutorialspoint.com/sqlite/sqlite_syntax.htm
+  

@@ -1,3 +1,9 @@
+/**
+  * File: Income.java
+ * Author: Artem Kalmakov
+ * Date: 11/18/2023
+*/
+
 package FinanceAnalyzer.financeClasses;
 import FinanceAnalyzer.db.DbOperations;
 public class Income extends FinantialOperation{
