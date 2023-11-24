@@ -84,7 +84,7 @@ public class DbOperations {
          Statement statement = this.conn.createStatement();
          ResultSet rs = statement.executeQuery("select * from " + table);
          while (rs.next()) {
-            data += "Name: " + rs.getString("name") + " Amt: " + rs.getDouble("amount") + " Date:" + rs.getString("date") + " Category:" + rs.getString("category") + " \n" + rs.getString("description") + "\n\n";
+            data += "ID: " + rs.getInt("id") + " Name: " + rs.getString("name") + " Amt: " + rs.getDouble("amount") + " Date:" + rs.getString("date") + " Category:" + rs.getString("category") + " \n" + rs.getString("description") + "\n\n";
          }
          rs.close();
       } catch ( Exception e ) {
@@ -92,6 +92,38 @@ public class DbOperations {
          System.exit(0);
       }
       return data;
+   }
+
+   public void deleteOperation(String table, int id) {
+      try {
+         Statement statement = this.conn.createStatement();
+         statement.executeUpdate("delete from " + table + " where id = " + id);
+      } catch ( Exception e ) {
+         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+         System.exit(0);
+      }
+   }
+
+   public String getMonthlyReport(String month, String year) {
+      String data = "";
+      try {
+         Statement statement = this.conn.createStatement();
+         ResultSet rs = statement.executeQuery("select * from expence where date like '%" + month + "/" + year + "'");
+         while (rs.next()) {
+            data += "ID: " + rs.getInt("id") + " Name: " + rs.getString("name") + " Amt: " + rs.getDouble("amount") + " Date:" + rs.getString("date") + " Category:" + rs.getString("category") + " \n" + rs.getString("description") + "\n\n";
+         }
+         rs.close();
+         rs = statement.executeQuery("select * from income where date like '%" + month + "/" + year + "'");
+         while (rs.next()) {
+            data += "ID: " + rs.getInt("id") + " Name: " + rs.getString("name") + " Amt: " + rs.getDouble("amount") + " Date:" + rs.getString("date") + " Category:" + rs.getString("category") + " \n" + rs.getString("description") + "\n\n";
+         }
+         rs.close();
+      } catch ( Exception e ) {
+         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+         System.exit(0);
+      }
+      return data;
+
    }
 
 }

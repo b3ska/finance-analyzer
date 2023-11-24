@@ -14,11 +14,27 @@ public class FinanceAnalyzer {
 
   public static double getAmount(Scanner input) {
     try {
-      return Integer.parseInt(input.nextLine());
+      return Double.parseDouble(input.nextLine());
     }
     catch(NumberFormatException e) {
       System.out.println("Invalid input. Please try again.");
       return getAmount(input);
+    }
+  }
+
+  public static int getId(Scanner input) {
+    try {
+      return Integer.parseInt(input.nextLine());
+    }
+    catch(NumberFormatException e) {
+      System.out.println("Invalid input. Please try again.");
+      return getId(input);
+    }
+  }
+
+  public static void printLines() {
+    for (int i = 0; i < 5; i++) {
+      System.out.println();
     }
   }
   
@@ -33,7 +49,7 @@ public class FinanceAnalyzer {
       System.out.println("Enter a command: (to see all commands possible, type \"help\"");
       command = input.nextLine();
       if (command.equals("help")) {
-        System.out.println("\n\nHere are the commands you can use:\nadd expence\nadd income\nshow expences\nshow incomes\nshow statistics\nexit\n");
+        System.out.println("\n\nHere are the commands you can use:\nadd expence\nadd income\nshow expences\nshow incomes\nshow statistics\ndel\nmonthly report\nexit\n");
         // - - - 
       }
       if (command.equals("exit")) {
@@ -72,15 +88,44 @@ public class FinanceAnalyzer {
         inc.recordIncome(dbconn);
       }
       if (command.equals("show expences")) {
+        printLines();
         System.out.println(dbconn.getTable("expence"));
       }
       if(command.equals("show incomes")) {
+        printLines();
         System.out.println(dbconn.getTable("income"));
       }
-      if (command.equals("show statistics")) {
+      if (command.equals("statistics")) {
         double incomeTotal = Double.parseDouble(dbconn.getTotal("income"));
         double expenceTotal = Double.parseDouble(dbconn.getTotal("expence"));
+        printLines();
         System.out.println("Money spent: " + expenceTotal + "\nMoney earned: " + incomeTotal + "\nMoney saved: " + (incomeTotal - expenceTotal));
+
+      }
+      if (command.equals("del")) {
+        System.out.println("Enter the type of operation you want to delete (expence or income): )");
+        String table = input.nextLine();
+        System.out.println("Enter the id of the operation you want to delete: ");
+        int id = getId(input);
+        try {
+          dbconn.deleteOperation(table, id);
+        }
+        catch(Exception e) {
+          System.out.println("Something went wrong. Please try again.");
+        }
+
+      }
+      if(command.equals("monthly report")) {
+        System.out.println("Enter the month you want to see the report for: ");
+        String month = input.nextLine();
+        System.out.println("Enter the year you want to see the report for: ");
+        String year = input.nextLine();
+        printLines();
+        try {
+          System.out.println(dbconn.getMonthlyReport(month, year));
+        } catch (Exception e) {
+          System.out.println("Something went wrong. Please try again.");
+        }
       }
     }
   }  
