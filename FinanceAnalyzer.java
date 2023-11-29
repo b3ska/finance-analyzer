@@ -49,7 +49,7 @@ public class FinanceAnalyzer {
       System.out.println("Enter a command: (to see all commands possible, type \"help\"");
       command = input.nextLine();
       if (command.equals("help")) {
-        System.out.println("\n\nHere are the commands you can use:\nadd expence\nadd income\nshow expences\nshow incomes\nshow statistics\ndel\nmonthly report\nexit\n");
+        System.out.println("\n\nHere are the commands you can use:\nadd expence\nadd income\nshow expences\nshow incomes\statistics\ndel\nmonthly report\nexit\n");
         // - - - 
       }
       if (command.equals("exit")) {
